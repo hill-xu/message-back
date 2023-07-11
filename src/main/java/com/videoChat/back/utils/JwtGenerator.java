@@ -57,14 +57,17 @@ public class JwtGenerator {
       String claims = jwt.getClaims();
       Gson gson = new Gson();
       UserVo user = gson.fromJson(claims, UserVo.class);
-      if (user.getExpMillis() < System.currentTimeMillis()) {
-        throw new BadCredentialsException("token过期, 请重新登录");
-      }
 
       String cacheToken = tokenCache.getTokenByUserId(user.getId());
       if (!StringUtils.hasText(cacheToken) || !token.equals(cacheToken)) {
         throw new BadCredentialsException("token失效, 请重新登录");
       }
+
+      if (user.getExpMillis() < System.currentTimeMillis()) {
+        throw new BadCredentialsException("token过期, 请重新登录");
+      }
+
+
       return true;
     } catch (Exception e) {
       if (e instanceof BadCredentialsException) {
