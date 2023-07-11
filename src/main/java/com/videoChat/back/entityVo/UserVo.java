@@ -6,4 +6,5 @@ import lombok.Data;
 @Data
 public class UserVo extends User {
   private Long expMillis;
+  private String verifyCode;
 }
