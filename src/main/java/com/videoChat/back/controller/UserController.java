@@ -72,4 +72,14 @@ public class UserController {
     return user;
   }
 
+  @GetMapping(value = "/getUserInfoById")
+  public User getUserInfoById(@RequestParam Integer id) throws Exception {
+    LambdaQueryWrapper<User> userWrapper = new LambdaQueryWrapper<User>();
+    userWrapper.eq(User::getId, id);
+    User user = userServiceImpl.getOne(userWrapper);
+    if (user == null) {
+      throw new Exception("该用户不存在");
+    }
+    return user;
+  }
 }

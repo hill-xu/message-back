@@ -3,7 +3,7 @@ package com.videoChat.back.handler;
 
 
 import com.google.gson.Gson;
-import com.videoChat.back.entity.Message;
+import com.videoChat.back.entityVo.MessageVo;
 import com.videoChat.back.utils.WebSocketSessionManager;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.BinaryMessage;
@@ -30,15 +30,15 @@ public class AloneWebSocketHandler extends AbstractWebSocketHandler {
   protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
     super.handleTextMessage(session, message);
     Gson gson = new Gson();
-    Message acceptMessage = gson.fromJson(message.getPayload(), Message.class);
-    Integer fromID = acceptMessage.getFrom();
-    Integer toID = acceptMessage.getTo();
-    String token = toID.toString() + "_" + fromID.toString();
+    MessageVo acceptMessage = gson.fromJson(message.getPayload(), MessageVo.class);
+    Integer userId = acceptMessage.getUserId();
+    Integer friendId = acceptMessage.getFriendId();
+    String token = friendId.toString() + "_" + userId.toString();
     WebSocketSession sendSession = WebSocketSessionManager.get_chat_alone(token);
     if (sendSession != null) {
       sendSession.sendMessage(new TextMessage(message.getPayload()));
     } else {
-      WebSocketSession updateSession = WebSocketSessionManager.get_update_message(toID.toString());
+      WebSocketSession updateSession = WebSocketSessionManager.get_update_message(friendId.toString());
       if (updateSession != null) {
         updateSession.sendMessage(new TextMessage(message.getPayload()));
       }

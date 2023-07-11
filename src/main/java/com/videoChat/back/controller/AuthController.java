@@ -81,7 +81,7 @@ public class AuthController {
       if (!StringUtils.hasText(verifyCode)) {
         throw new Exception("验证码不能为空");
       }
-      if (verifyCode.equals(verifyCache.getVerifyCodeByUniqueId(verifyCode))) {
+      if (!verifyCode.equals(verifyCache.getVerifyCodeByUniqueId(user.getVerifyKey()))) {
         throw new Exception("验证码不正确");
       }
       String encryptionPass = user.getPassword();

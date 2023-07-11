@@ -48,6 +48,8 @@ public class WebSecurityConfiger {
               auth
                       .requestMatchers(GlobalConfig.safeUrls)
                       .permitAll()
+                      .requestMatchers("/update-message/**", "/chat-alone/**")
+                      .permitAll()
                       .anyRequest()
                       .authenticated();
             })

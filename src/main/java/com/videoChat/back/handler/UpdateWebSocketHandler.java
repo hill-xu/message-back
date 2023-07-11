@@ -1,7 +1,5 @@
 package com.videoChat.back.handler;
 
-import com.google.gson.Gson;
-import com.videoChat.back.entity.Message;
 import com.videoChat.back.utils.WebSocketSessionManager;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.BinaryMessage;
