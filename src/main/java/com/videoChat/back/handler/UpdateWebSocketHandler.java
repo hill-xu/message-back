@@ -16,6 +16,7 @@ public class UpdateWebSocketHandler extends AbstractWebSocketHandler {
     String uri = session.getUri().toString();
     String[] uriArr = uri.split("/");
     String token = uriArr[uriArr.length - 1];
+    WebSocketSessionManager.removeAndClose_update_message(token);
     WebSocketSessionManager.add_update_message(token, session);
     System.out.println("更新消息websocket连接");
   }

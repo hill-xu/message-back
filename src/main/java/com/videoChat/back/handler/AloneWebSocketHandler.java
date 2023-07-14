@@ -22,6 +22,7 @@ public class AloneWebSocketHandler extends AbstractWebSocketHandler {
     String uri = session.getUri().toString();
     String[] uriArr = uri.split("/");
     String token = uriArr[uriArr.length - 1];
+    WebSocketSessionManager.removeAndClose_chat_alone(token);
     WebSocketSessionManager.add_chat_alone(token, session);
     System.out.println("单独聊天websocket连接");
   }
