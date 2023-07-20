@@ -22,7 +22,6 @@ public class AloneWebSocketHandler extends AbstractWebSocketHandler {
     String uri = session.getUri().toString();
     String[] uriArr = uri.split("/");
     String token = uriArr[uriArr.length - 1];
-    WebSocketSessionManager.removeAndClose_chat_alone(token);
     WebSocketSessionManager.add_chat_alone(token, session);
     System.out.println("单独聊天websocket连接");
   }
@@ -59,6 +58,10 @@ public class AloneWebSocketHandler extends AbstractWebSocketHandler {
   @Override
   public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
     super.afterConnectionClosed(session, status);
+    String uri = session.getUri().toString();
+    String[] uriArr = uri.split("/");
+    String token = uriArr[uriArr.length - 1];
+    WebSocketSessionManager.removeAndClose_chat_alone(token);
     System.out.println("单独聊天websocket断开");
   }
 }

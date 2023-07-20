@@ -16,7 +16,6 @@ public class UpdateWebSocketHandler extends AbstractWebSocketHandler {
     String uri = session.getUri().toString();
     String[] uriArr = uri.split("/");
     String token = uriArr[uriArr.length - 1];
-    WebSocketSessionManager.removeAndClose_update_message(token);
     WebSocketSessionManager.add_update_message(token, session);
     System.out.println("更新消息websocket连接");
   }
@@ -39,6 +38,10 @@ public class UpdateWebSocketHandler extends AbstractWebSocketHandler {
   @Override
   public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
     super.afterConnectionClosed(session, status);
+    String uri = session.getUri().toString();
+    String[] uriArr = uri.split("/");
+    String token = uriArr[uriArr.length - 1];
+    WebSocketSessionManager.removeAndClose_update_message(token);
     System.out.println("更新消息websocket断开");
   }
 }
