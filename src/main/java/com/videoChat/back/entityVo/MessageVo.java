@@ -14,5 +14,5 @@ public class MessageVo {
 
   private String text;
 
-  private String resources;
+  private Object resources;
 }
