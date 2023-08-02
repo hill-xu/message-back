@@ -6,6 +6,7 @@ public class GlobalConfig {
           "/auth/genCode",
           "/auth/getPublicKey",
           "/user/register",
-          "/upload/uploadImg"
+          "/upload/uploadImg",
+          "/assets"
   };
 }

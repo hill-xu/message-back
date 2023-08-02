@@ -46,9 +46,16 @@ public class WebSecurityConfiger {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests((auth) -> {
               auth
-                      .requestMatchers(GlobalConfig.safeUrls)
-                      .permitAll()
-                      .requestMatchers("/update-message/**", "/chat-alone/**")
+                      .requestMatchers(
+                              "/update-message/**",
+                              "/chat-alone/**",
+                              "/assets/**",
+                              "/auth/login",
+                              "/auth/genCode",
+                              "/auth/getPublicKey",
+                              "/user/register",
+                              "/upload/uploadImg"
+                      )
                       .permitAll()
                       .anyRequest()
                       .authenticated();
