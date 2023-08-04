@@ -12,21 +12,30 @@ import java.net.URLEncoder;
 @RequestMapping("/upload")
 public class AssetsController {
 
-  @Value("${spring.web.resources.static-locations}")
+  @Value("${custom.assetsPath}")
   private String assetsPath;
+
+  @Value("${custom.serverPath}")
+  private String serverPath;
+
   @PostMapping(value = "/uploadAssets")
   public String uploadAssets(@RequestBody MultipartFile file, @RequestParam String type) throws IOException {
-    String fileName = file.getOriginalFilename();
-    String dirPath = assetsPath + "/" + type;
-    String filePath = dirPath + "/" + fileName;
-    File dir = new File(dirPath);
-    if (dir.exists()) {
-      file.transferTo(new File(filePath));
-    } else {
-      dir.mkdirs();
-      file.transferTo(new File(filePath));
+    String filePath = "";
+    try {
+      String fileName = file.getOriginalFilename();
+      String dirPath = assetsPath + "/" + type;
+      filePath = dirPath + "/" + fileName;
+      File dir = new File(dirPath);
+      if (dir.exists()) {
+        file.transferTo(new File(filePath));
+      } else {
+        dir.mkdirs();
+        file.transferTo(new File(filePath));
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
     }
-    return filePath;
+    return filePath.replace(assetsPath, serverPath);
   }
 
   @PostMapping(value = "/downloadAssets")
