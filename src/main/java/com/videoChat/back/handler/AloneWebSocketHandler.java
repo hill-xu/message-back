@@ -33,8 +33,8 @@ public class AloneWebSocketHandler extends AbstractWebSocketHandler {
     MessageVo acceptMessage = gson.fromJson(message.getPayload(), MessageVo.class);
     Integer userId = acceptMessage.getUserId();
     Integer friendId = acceptMessage.getFriendId();
-//    String token = friendId.toString() + "_" + userId.toString();
-    String token = userId.toString() + "_" + friendId.toString();
+    String token = friendId.toString() + "_" + userId.toString();
+//    String token = userId.toString() + "_" + friendId.toString();
     WebSocketSession sendSession = WebSocketSessionManager.get_chat_alone(token);
     if (sendSession != null) {
       sendSession.sendMessage(new TextMessage(message.getPayload()));
